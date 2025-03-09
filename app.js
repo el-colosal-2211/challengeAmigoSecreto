@@ -1,0 +1,56 @@
+// Declaración de variables
+
+let amigos = [];
+let listaDeAmigos = document.getElementById('listaAmigos');
+let amigoSorteado = document.getElementById('resultado');
+let reiniciar = document.getElementById('reiniciar');
+
+//Capta la información registrada por el usuario en el input
+
+function agregarAmigo() {
+    
+    let nombreAmigo = document.getElementById('amigo').value;
+    if (amigos.includes(nombreAmigo)) {
+        alert('Debes ingresar un nombre que no se haya registrado.');
+        amigos.pop(nombreAmigo);
+    }
+    
+    if (nombreAmigo === '') {
+        alert('No se ha registrado ningún nombre, por favor escribe uno!!!.');
+    } else {
+        amigos.push(nombreAmigo);
+    }       
+    actualizarListaDeAmigos();
+    limpiarCaja();
+    return;    
+}  
+
+//Funcion para mostrar los nombres ingresados en forma de lista 
+
+function actualizarListaDeAmigos() {
+    listaDeAmigos.innerHTML = '';
+    for (var i = 1; i <= amigos.length; i++) {
+        let nombreAgregado = document.createElement('li');
+        nombreAgregado.textContent = ` ${amigos[i - 1]}`;
+        listaDeAmigos.appendChild(nombreAgregado);
+    }
+}
+
+// Sorteo de amigo y visualización del resultado.
+
+function sortearAmigo() {
+
+    if (amigos.length >= 2) {
+        let amigoAleatorio = Math.floor(Math.random() * amigos.length);
+        amigoSorteado.innerHTML = `El amigo sorteado es: ${amigos[amigoAleatorio]}.`;
+    } else {
+        alert('Debe añadir al menos dos nombres.');
+    } 
+
+}
+
+// Vacia el imput una ves tomado el dato ingresado por el usuario.
+function limpiarCaja() {
+    document.getElementById('amigo').value = '';
+}
+
